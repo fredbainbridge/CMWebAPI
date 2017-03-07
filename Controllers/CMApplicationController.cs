@@ -30,6 +30,11 @@ namespace CMWebAPI.Controllers
         {
             return Json(_CMApplicationRepository.GetByName(id));
         }
+
+        public IActionResult DP(string id, string appName)
+        {
+            return View(_CMApplicationRepository.GetAppOnDP(id, appName));
+        }
         public IActionResult AppFromView()
         {
             return View(_ApplicationFromDBViewRepository.GetAll());

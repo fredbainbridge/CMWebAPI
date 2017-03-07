@@ -11,5 +11,6 @@ namespace CMWebAPI.Models
     {
         IList<CMApplication> GetAll();
         IList<CMApplication> GetByName(string id);
+        IList <CMApplication> GetAppOnDP(string id, string appName);
     }
 }

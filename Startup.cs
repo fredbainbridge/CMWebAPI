@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +10,7 @@ namespace CMWebAPI
 {
     public class Startup
     {
+        public static string ConnectionString {get; private set;}
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -22,6 +19,7 @@ namespace CMWebAPI
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            ConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -30,8 +28,8 @@ namespace CMWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // register the database as a service
-            var connection = @"Server = cm01; Initial Catalog = CM_LAB; Integrated Security = True";
-            services.AddDbContext<CMContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<CMContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //this registers the service and injects the CMApplicationRepository into constructors.
             services.AddScoped<ICMApplicationRepository, CMApplicationRepository>();
             services.AddScoped<IApplicationFromDBViewRepository, ApplicationFromDBViewRepository>();

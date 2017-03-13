@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CMWebAPI.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CMWebAPI.Controllers
 {
@@ -34,6 +29,11 @@ namespace CMWebAPI.Controllers
         public IActionResult DP(string id, string appName)
         {
             return View(_CMApplicationRepository.GetAppOnDP(id, appName));
+        }
+
+        public JsonResult DPJSON(string id, string appName)
+        {
+            return Json(_CMApplicationRepository.GetAppOnDP(id, appName));
         }
         public IActionResult AppFromView()
         {

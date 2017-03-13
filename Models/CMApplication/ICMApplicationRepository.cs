@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CMWebAPI.Models;
-
+﻿using System.Collections.Generic;
 
 namespace CMWebAPI.Models
 {

@@ -64,7 +64,7 @@ namespace CMWebAPI.Models
                 join @apps a on a.name = p.name
                 where s.installstatus ='Package Installation complete' 
                 and s.servernalpath like '%' + @DPName + '%' 
-                AND p.name like '%' + @AppName+ '%' 
+                AND (NULLIF(@AppName,'') IS NULL OR p.name like '%' + @AppName+ '%') 
                 order by s.packageid
             ";
             query = query.Replace("##APPNAME##", appName);
